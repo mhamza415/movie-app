@@ -1,9 +1,9 @@
 import React from "react";
 import MovieCard from "./MovieCard";
-import { Container, InputGroup, Form, Row, Col } from "react-bootstrap";
+import { Container, InputGroup, Form, Row, Col, Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { GoSearch } from "react-icons/go";
+
 
 
 const MovieSite = () => {
@@ -21,7 +21,8 @@ const MovieSite = () => {
     useEffect(() => {
       searchApi("spiderman");
     }, []);
-  const handleSearch = () => {
+  const handleSearch = (e) => {
+    e.preventDefault()
     searchApi(searchTerm);
   }
 
@@ -36,35 +37,34 @@ const MovieSite = () => {
 
   return (
     <Container>
-      <h1 className="text-center mt-5">Movie Land</h1>
-      <Form>
+      <h1 className="text-center mt-5 text">Movie Land</h1>
+      <Form onSubmit={handleSearch}>
         <Form.Group>
           <InputGroup>
             <Form.Control
+              value={searchTerm}
               placeholder="Search for movie"
               onChange={(e) => {
                 setSearchTerm(e.target.value);
               }}
             />
             <Form.Text>
-              <FontAwesomeIcon
-                icon={faMagnifyingGlass}
-                className="fs-6"
-                onClick={handleSearch}
-              />
+              <Button variant="dark" className="mx-1" type="submit">
+                <GoSearch className="fs-1" />
+              </Button>
             </Form.Text>
           </InputGroup>
         </Form.Group>
       </Form>
-      <Row className="d-flex flex-row">
+      <Row>
         {searchedData?.length > 0 ? (
           searchedData.map((movie) => (
-            <Col md={6} lg={4} className="flex-grow-1 align-content-stretch">
+            <Col md={6} lg={4}>
               <MovieCard movie={movie} />
             </Col>
           ))
         ) : (
-          <p>No data to display</p>
+          <p style={{marginTop: "2rem"}}>An Error occurd no data to display</p>
         )}
       </Row>
     </Container>

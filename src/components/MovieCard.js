@@ -7,14 +7,15 @@ const MovieCard = ({ movie: { imdbID, Year, Type, Title, Poster } }) => {
       <Row >
         <Col className="my-5">
           <div className="wrapper ">
-            <h1>{Title}</h1>
+            <h1>{`This movie ${Title} was publish in ${Year}` }</h1>
 
             <Card key={imdbID} className=" bg-white hover card">
               <Card.Img
                 variant="top"
                 src={Poster}
+                className="image"
                 onError={(e) => {
-                  e.target.src = `https://via.placeholder.com/400x530?text=${Title}`;
+                  e.target.src = `https://via.placeholder.com/400x500?text=${Title}`;
                 }}
                 alt="Title"
               ></Card.Img>
